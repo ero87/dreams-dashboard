@@ -1,0 +1,87 @@
+
+<!--<label>Name: </label><br>-->
+<!--<input [(ngModel)]="sprint.name"><br>-->
+<!--<label>Process</label><br>-->
+<!--<select name="process" (change)="initStates($event)">-->
+<!--  <option value="" disabled>Choose a process</option>-->
+<!--  <option *ngFor="let process of processes" [(ngModel)]="sprint.processId">-->
+<!--    {{process.name}}-->
+<!--  </option>-->
+<!--</select><br>-->
+<!--<label>Start Date (MM/dd/yyyy)</label><br>-->
+<!--<input type="date" [(ngModel)]="sprint.startDate"><br>-->
+<!--<div *ngIf="sprint.states?.length > 0">-->
+<!--  <div *ngFor="let state of sprint.states">-->
+<!--    <label>Name: </label><br>-->
+<!--    <input [(ngModel)]="state.name"><br>-->
+<!--    <label>Start Date (MM/dd/yyyy)</label><br>-->
+<!--    <input type="date" [(ngModel)]="state.startDate"><br>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<button (click)="saveData()" routerLink="/" routerLinkActive="active">Save</button>-->
+<h1 style="color: #5e9ca0; text-align: center;">Dashboard of our HEART <span style="color: #ff0000;">❤</span></h1>
+<h2 style="color: #2e6c80; text-align: center;"><br />Sprint:&nbsp;{{sprint.name}}</h2>
+<table style="border: 0px;" width="100%;">
+  <tbody>
+  <tr>
+    <td style="border: 0px;"><span style="color: #808080;">Process:</span> <strong>{{process.name}}</strong></td>
+    <td style="border: 0px;"><span style="color: #808080;">Start Date:</span> {{process.startDate}}</td>
+  </tr>
+  </tbody>
+</table>
+<p><span style="color: #808080;">Sprint States</span></p>
+<table>
+  <thead>
+  <tr>
+    <td style="text-align: left; width: 177px;">
+      <h4>State</h4>
+    </td>
+    <td style="width: 121.328px;">
+      <h4>Start Date</h4>
+    </td>
+    <td style="width: 125px;">
+      <h4>End Date</h4>
+    </td>
+    <td style="width: 25px;">
+      <h4>Order</h4>
+    </td>
+    <td style="width: 125px;">&nbsp;</td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let state of sprint.states">
+    <td style="width: 177px;">
+      <p>{{state.name}}</p>
+    </td>
+    <td style="width: 121.328px;"><input [ngModel]="state.startDate"/></td>
+    <td style="width: 125px;"><input   [(ngModel)]="state.endDate"/></td>
+    <td style="width: 25px;"><input type="number"  [(ngModel)]="state.order"/></td>
+    <td><button type="button" (click)="saveState(state)">Save</button></td>
+  </tr>
+  </tbody>
+</table>
+<p><button type="button" (click)="initNewState()">Add New Sprint State</button></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="AddNewState" *ngIf="newState">
+  <table>
+    <tbody>
+    <tr>
+      <td style="text-align: left; width: 177px;">
+        <h4>State Name:</h4>
+        <input type="text" [(ngModel)]="newState.name"/></td>
+      <td style="width: 121.328px;">
+        <h4>Start Date</h4>
+        <input [(ngModel)]="newState.startDate"/></td>
+      <td style="width: 125px;">
+        <h4>End Date</h4>
+        <input [(ngModel)]="newState.endDate"/></td>
+      <td style="width: 25px;">
+        <h4>Order</h4>
+        <input type="number"  [(ngModel)]="newState.order"/></td>
+      <td style="width: 125px;"><button type="button" (click)="saveNewState()">Add</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

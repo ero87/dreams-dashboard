@@ -1,0 +1,67 @@
+<!-- ####### YAY, I AM THE SOURCE EDITOR! #########-->
+<h1 style="color: #5e9ca0; text-align: center;">Dashboard of our HEART <span style="color: #ff0000;">❤</span></h1>
+<h2 style="color: #2e6c80; text-align: center;"><br/>Team: &nbsp;
+  <select (change)="initProcesses($event)">
+    <option value="" disabled>Choose a team</option>
+    <option *ngFor="let team of teams">{{team.name}}</option>
+  </select></h2>
+<table style="border: 0px;">
+  <tbody>
+  <tr>
+    <td style="border: 0px;"><span style="color: #808080;">Process:</span></td>
+    <td style="border: 0px;">
+      <select (change)="initSprint($event)">
+        <option value="" disabled>Choose a process</option>
+        <option *ngFor="let process of processes">{{process.name}}</option>
+      </select>
+    </td>
+    <td *ngIf="selectedProcess" style="border: 0px; width: 292px;">
+      <button type="button" (click)="onEditSprint(true)">Create New Sprint</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<table style="border: 0px;">
+  <tbody>
+  <tr>
+    <td style="border: 0px; width: 59px;"><span style="color: #808080;">Sprint: </span></td>
+    <td style="width: 113px; border: 0px;">
+      <select (change)="onSprintChange($event)">
+        <option value="" disabled>Choose a sprint</option>
+        <option *ngFor="let sprint of sprints">{{sprint.name}}</option>
+      </select></td>
+    <td style="border: 0px; width: 292px;">
+      <button *ngIf="selectedSprint" type="button" (click)="onEditSprint(true)">Edit Sprint</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+
+<div id="CreateSprint" style="visibility: hidden;">
+  <table style="border:0">
+    <tbody>
+    <tr style="border:0">
+      <td style="text-align: left; width: 177px; border:0">
+        <h4>Process:</h4>
+        <select>
+          <option>Backlog Process</option>
+          <option>LTS Process</option>
+        </select>
+      </td>
+      <td style="text-align: left; width: 177px; border:0">
+        <h4>Sprint Name:</h4>
+        <input type="text"/></td>
+      <td style="width: 121.328px; border:0">
+        <h4>Start Date</h4>
+        <input type="date"/></td>
+
+
+      <td style="width: 125px; border:0">
+        <button type="button" onclick="hideCreateSprint()">Create</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<app-sprint-builder *ngIf="showBuilder" [sprint]="selectedSprint"></app-sprint-builder>

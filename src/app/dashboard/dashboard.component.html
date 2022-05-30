@@ -1,0 +1,83 @@
+<head>
+  <style>
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #c0c0c0;
+      shape-rendering: crispEdges;
+    }
+    .axis text {
+      font-family: sans-serif;
+      font-size: 10px;
+    }
+    .timeline-label {
+      font-family: sans-serif;
+      font-size: 12px;
+    }
+    #timeline2 .axis {
+      transform: translate(0px,40px);
+      -ms-transform: translate(0px,40px); /* IE 9 */
+      -webkit-transform: translate(0px,40px); /* Safari and Chrome */
+      -o-transform: translate(0px,40px); /* Opera */
+      -moz-transform: translate(0px,40px); /* Firefox */
+    }
+
+    .coloredDiv {
+      height:20px; width:20px; float:left;
+    }
+  </style>
+</head>
+<body>
+<script>
+  var dt = new Date();
+  document.getElementById('date-time').innerHTML=dt;
+</script>
+<router-outlet></router-outlet>
+<h1 style="color: #5e9ca0; text-align: center;">Dashboard of our HEART <span style="color: #ff0000;">❤</span></h1>
+<table style="width: 100%; border: 0px;" border="0">
+  <tbody>
+  <tr>
+    <td style="width: 50%; border: 0px;">
+    <h2 style="color: #2e6c80; text-align: left;"><br/>Team: &nbsp;
+      <select (change)="initSprints($event)">
+        <option >{{teams[0].name}}</option>
+      </select></h2>
+    </td>
+    <td style="width:50%; border:0px;">
+     <h2 style="text-align:right">
+        <a routerLink="/sprints" routerLinkActive="active">&#x2699;</a>
+     </h2>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<h2 style="color: #2e6c80; text-align: center;"><br />BACKLOG PROCESS</h2>
+<table style="border: 0px;" width="100%;">
+  <tbody>
+  <tr>
+    <td style="border: 0px;" colspan="2"><span style="color: #808080;">Current Release:</span> <strong>Urts</strong></td>
+  </tr>
+  <tr>
+    <td style="border: 0px;"><span style="color: #808080;">Start Date:</span> <strong>Monday 02, May</strong></td>
+    <td style="text-align: right; border: 0px;"><span style="color: #808080;">End Date:</span> <strong>Wednesday 01, June</strong></td>
+  </tr>
+  </tbody>
+</table>
+<div id="a629135fd3250d5959611fe78"></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><strong>&nbsp;</strong></p>
+<h2 style="color: #2e6c80; text-align: center;">LTS PROCESS</h2>
+<table style="border: 0px;" width="100%">
+  <tbody>
+  <tr>
+    <td style="border: 0px;" colspan="2"><span style="color: #808080;">Current Release:</span> <strong>GeghamaSar</strong></td>
+  </tr>
+  <tr>
+    <td style="border: 0px;"><span style="color: #808080;">Start Date:</span> <strong>Monday 23, May</strong></td>
+    <td style="text-align: right; border: 0px;"><span style="color: #808080;">End Date:</span> <strong>Friday 27, May</strong></td>
+  </tr>
+  </tbody>
+</table>
+<div id="a6291397ace0b8a56fc96606e"></div>
+</body>
