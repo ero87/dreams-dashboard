@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 @Component({
   selector: 'app-sprint-list',
   templateUrl: 'sprint-list.component.html',
-  styleUrls: ['sprint-list.component.scss']
+  styleUrls: ['sprint-list.component.css']
 })
 
 export class SprintListComponent implements OnInit {

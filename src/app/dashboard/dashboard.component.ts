@@ -3,6 +3,7 @@ import {Team} from '../team/team';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Process} from '../process/process';
 import {Sprint} from '../sprint/sprint';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,7 @@ export class DashboardComponent implements OnInit {
     d3.timeline = function () {
       const DISPLAY_TYPES = ['circle', 'rect'];
 
-      const hover = function () {
+      let hover = function () {
         },
         mouseover = function () {
         },
@@ -109,9 +110,11 @@ export class DashboardComponent implements OnInit {
       };
 
       const appendTimeAxisCalendarYear = function (nav) {
-        const calendarLabel = beginning.getFullYear();
-
+        // @ts-ignore
+        let calendarLabel = beginning.getFullYear();
+        // @ts-ignore
         if (beginning.getFullYear() !== ending.getFullYear()) {
+          // @ts-ignore
           calendarLabel = beginning.getFullYear() + '-' + ending.getFullYear();
         }
 
@@ -144,6 +147,7 @@ export class DashboardComponent implements OnInit {
           .attr('class', 'chevron')
           .text('<')
           .on('click', function () {
+            // @ts-ignore
             return navigateLeft(beginning, chartData);
           });
 
@@ -154,6 +158,7 @@ export class DashboardComponent implements OnInit {
           .attr('class', 'chevron')
           .text('>')
           .on('click', function () {
+            // @ts-ignore
             return navigateRight(ending, chartData);
           });
       };
@@ -198,6 +203,7 @@ export class DashboardComponent implements OnInit {
           .attr('transform', 'translate(' + labelMargin + ',' + rowsDown + ')')
           .text(hasLabel ? labelFunction(datum.label) : datum.id)
           .on('click', function (d, i) {
+            // @ts-ignore
             click(d, index, datum);
           });
       };
@@ -208,7 +214,7 @@ export class DashboardComponent implements OnInit {
 
         const gParentItem = d3.select(gParent[0][0]);
 
-        const yAxisMapping = {},
+        let yAxisMapping = {},
           maxStack = 1,
           minTime = 0,
           maxTime = 0;
@@ -221,8 +227,8 @@ export class DashboardComponent implements OnInit {
           g.each(function (d, i) {
             d.forEach(function (datum, index) {
               datum.times.forEach(function (time, j) {
+                const originTime = time.starting_time;
                 if (index === 0 && j === 0) {
-                  originTime = time.starting_time;
                   time.starting_time = 0;
                   time.ending_time = time.ending_time - originTime;
                 } else {
@@ -286,7 +292,7 @@ export class DashboardComponent implements OnInit {
         if (tickFormat.tickValues != null) {
           xAxis.tickValues(tickFormat.tickValues);
         } else {
-          xAxis.ticks(tickFormat.numTicks || tickFormat.tickTime, tickFormat.tickInterval);
+          xAxis.ticks(tickFormat.tickTime, tickFormat.tickInterval);
         }
 
         // draw the chart
@@ -312,13 +318,14 @@ export class DashboardComponent implements OnInit {
                 return (d.ending_time - d.starting_time) * scaleFactor;
               })
               .attr('cy', function (d, i) {
+                // @ts-ignore
                 return getStackPosition(d, i) + itemHeight / 2;
               })
               .attr('cx', getXPos)
               .attr('r', itemHeight / 2)
               .attr('height', itemHeight)
               .style('fill', function (d) {
-                const dColorPropName;
+                let dColorPropName;
                 if (d.color) {
                   return d.color;
                 }
@@ -333,15 +340,19 @@ export class DashboardComponent implements OnInit {
                 return colorCycle(index);
               })
               .on('mousemove', function (d, i) {
+                // @ts-ignore
                 hover(d, i, datum);
               })
               .on('mouseover', function (d, i) {
+                // @ts-ignore
                 mouseover(d, i, datum);
               })
               .on('mouseout', function (d, i) {
+                // @ts-ignore
                 mouseout(d, i, datum);
               })
               .on('click', function (d, i) {
+                // @ts-ignore
                 click(d, i, datum);
               })
               .attr('class', function (d, i) {
@@ -423,6 +434,7 @@ export class DashboardComponent implements OnInit {
             const x = Math.min(0, Math.max(gParentSize.width - width, d3.event.translate[0]));
             zoom.translate([x, 0]);
             g.attr('transform', 'translate(' + x + ',0)');
+            // @ts-ignore
             scroll(x * scaleFactor, xScale);
           };
 
@@ -522,7 +534,7 @@ export class DashboardComponent implements OnInit {
       }
 
       // SETTINGS
-
+      // @ts-ignore
       timeline.margin = function (p) {
         if (!arguments.length) {
           return margin;
@@ -531,6 +543,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.orient = function (orientation) {
         if (!arguments.length) {
           return orient;
@@ -539,6 +552,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.itemHeight = function (h) {
         if (!arguments.length) {
           return itemHeight;
@@ -547,6 +561,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.itemMargin = function (h) {
         if (!arguments.length) {
           return itemMargin;
@@ -555,6 +570,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.navMargin = function (h) {
         if (!arguments.length) {
           return navMargin;
@@ -563,6 +579,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.height = function (h) {
         if (!arguments.length) {
           return height;
@@ -571,6 +588,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.width = function (w) {
         if (!arguments.length) {
           return width;
@@ -579,6 +597,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.display = function (displayType) {
         if (!arguments.length || (DISPLAY_TYPES.indexOf(displayType) == -1)) {
           return display;
@@ -587,6 +606,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.labelFormat = function (f) {
         if (!arguments.length) {
           return labelFunction;
@@ -595,6 +615,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.tickFormat = function (format) {
         if (!arguments.length) {
           return tickFormat;
@@ -603,6 +624,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.hover = function (hoverFunc) {
         if (!arguments.length) {
           return hover;
@@ -611,6 +633,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.mouseover = function (mouseoverFunc) {
         if (!arguments.length) {
           return mouseover;
@@ -619,6 +642,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.mouseout = function (mouseoutFunc) {
         if (!arguments.length) {
           return mouseout;
@@ -627,6 +651,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.click = function (clickFunc) {
         if (!arguments.length) {
           return click;
@@ -635,6 +660,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.scroll = function (scrollFunc) {
         if (!arguments.length) {
           return scroll;
@@ -643,6 +669,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.colors = function (colorFormat) {
         if (!arguments.length) {
           return colorCycle;
@@ -651,6 +678,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.beginning = function (b) {
         if (!arguments.length) {
           return beginning;
@@ -659,6 +687,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.ending = function (e) {
         if (!arguments.length) {
           return ending;
@@ -667,6 +696,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.labelMargin = function (m) {
         if (!arguments.length) {
           return labelMargin;
@@ -675,6 +705,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.rotateTicks = function (degrees) {
         if (!arguments.length) {
           return rotateTicks;
@@ -683,21 +714,25 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.stack = function () {
         stacked = !stacked;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.relativeTime = function () {
         timeIsRelative = !timeIsRelative;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showBorderLine = function () {
         showBorderLine = !showBorderLine;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showBorderFormat = function (borderFormat) {
         if (!arguments.length) {
           return showBorderFormat;
@@ -706,11 +741,13 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showToday = function () {
         showTodayLine = !showTodayLine;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showTodayFormat = function (todayFormat) {
         if (!arguments.length) {
           return showTodayFormat;
@@ -719,6 +756,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.colorProperty = function (colorProp) {
         if (!arguments.length) {
           return colorPropertyName;
@@ -727,6 +765,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.rowSeparators = function (color) {
         if (!arguments.length) {
           return rowSeparatorsColor;
@@ -736,6 +775,7 @@ export class DashboardComponent implements OnInit {
 
       };
 
+      // @ts-ignore
       timeline.background = function (color) {
         if (!arguments.length) {
           return backgroundColor;
@@ -744,31 +784,37 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showTimeAxis = function () {
         showTimeAxis = !showTimeAxis;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showAxisTop = function () {
         showAxisTop = !showAxisTop;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showAxisCalendarYear = function () {
         showAxisCalendarYear = !showAxisCalendarYear;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showTimeAxisTick = function () {
         timeAxisTick = !timeAxisTick;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.fullLengthBackgrounds = function () {
         fullLengthBackgrounds = !fullLengthBackgrounds;
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showTimeAxisTickFormat = function (format) {
         if (!arguments.length) {
           return timeAxisTickFormat;
@@ -777,6 +823,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.showAxisHeaderBackground = function (bgColor) {
         showAxisHeaderBackground = !showAxisHeaderBackground;
         if (bgColor) {
@@ -785,6 +832,7 @@ export class DashboardComponent implements OnInit {
         return timeline;
       };
 
+      // @ts-ignore
       timeline.navigate = function (navigateBackwards, navigateForwards) {
         if (!arguments.length) {
           return [navigateLeft, navigateRight];

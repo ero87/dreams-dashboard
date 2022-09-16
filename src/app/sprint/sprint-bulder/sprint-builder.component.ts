@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-sprint-builder',
   templateUrl: 'sprint-builder.component.html',
-  styleUrls: ['sprint-builder.component.scss']
+  styleUrls: ['sprint-builder.component.css']
 })
 export class SprintBuilderComponent implements OnInit {
   @Input()
